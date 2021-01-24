@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(NovelListApp());
 }
 
-class MyApp extends StatelessWidget {
+class NovelListApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,20 +13,20 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: RootPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class RootPage extends StatefulWidget {
+  RootPage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _RootPageState createState() => _RootPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RootPageState extends State<RootPage> {
   int _counter = 0;
 
   void _incrementCounter() {
