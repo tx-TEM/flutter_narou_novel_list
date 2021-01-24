@@ -1,65 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+
+final counterProvider = StateProvider((ref) => 0);
 
 void main() {
-  runApp(NovelListApp());
+  runApp(ProviderScope(child: NovelListApp()));
 }
 
 class NovelListApp extends StatelessWidget {
   @override
+  Widget build(BuildContext context) => MaterialApp(home: RootPage());
+}
+
+class RootPage extends HookWidget {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: RootPage(title: 'Flutter Demo Home Page'),
+    final int count = useProvider(counterProvider).state;
+    var floatingActionButton2 = FloatingActionButton(
+      tooltip: 'Increment',
+      child: Icon(Icons.add),
+      onPressed: () {
+        context.read(counterProvider).state++;
+      },
     );
-  }
-}
-
-class RootPage extends StatefulWidget {
-  RootPage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _RootPageState createState() => _RootPageState();
-}
-
-class _RootPageState extends State<RootPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      body: Center(child: Text('$count')),
+      floatingActionButton: floatingActionButton2,
     );
   }
 }
